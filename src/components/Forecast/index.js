@@ -1,3 +1,1 @@
-import Forecast from ".";
-
-export { default } from ".";
+export { default } from './Forecast';
