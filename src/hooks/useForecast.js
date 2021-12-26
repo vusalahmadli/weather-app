@@ -10,10 +10,35 @@ const useForecast = () => {
   const [isLoading, setLoading] = useState(false);
   const [forecast, setForecast] = useState(null);
 
-  //call api
+  const getWoeid = async (location) => {
+    const { data } = await axios(`${REQUEST_URL}/search`, {
+      params: { query: location },
+    });
 
-  const submitRequest = (location) => {
-    axios(REQUEST_URL);
+    if (!data || data.length === 0) {
+      setError("There is no such location");
+      return;
+    }
+
+    return data;
+  };
+
+  const getForecastData = async (woeid) => {
+    const { data } = await axios(`${REQUEST_URL}/${woeid}`);
+
+    if (!data || data.length === 0) {
+      setError("Something went wrong");
+      return;
+    }
+
+    return data;
+  };
+
+  const submitRequest = async (location) => {
+    const response = await getWoeid(location);
+    const data = await getForecastData(response[0].woeid);
+
+    console.log({ data });
   };
 
   return {

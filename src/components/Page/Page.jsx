@@ -14,7 +14,6 @@ const Page = () => {
   const { isError, isLoading, forecast, submitRequest } = useForecast();
 
   const onSubmit = (value) => {
-    // call function
     submitRequest(value);
   };
 
@@ -25,7 +24,7 @@ const Page = () => {
         {/*<Form /> */}
         {!isLoading && <Form submitSearch={onSubmit} />}
         {/*<Error />*/}
-        {!isError && <Error message={isError} />}
+        {isError && <Error message={isError} />}
         {/*<Loader />*/}
         {isLoading && <Loader />}
       </div>
